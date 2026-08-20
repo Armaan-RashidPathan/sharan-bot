@@ -16,6 +16,7 @@ Run from the project root:
     ./.venv/Scripts/python.exe -m streamlit run frontend/app.py
 """
 
+import os
 import sys
 from pathlib import Path
 
@@ -24,6 +25,17 @@ import streamlit as st
 # Make the `chain` package importable regardless of the working directory
 # Streamlit was launched from (matters both locally and once deployed).
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+# chain.qa_chain reads GROQ_API_KEY from os.environ at import time. Locally
+# that's populated by load_dotenv() reading .env. On Streamlit Community
+# Cloud, secrets are set via st.secrets instead — bridge it into os.environ
+# here, before the import below triggers chain.qa_chain's module-level code,
+# so the same os.environ lookup works unchanged on either platform.
+try:
+    if "GROQ_API_KEY" not in os.environ and "GROQ_API_KEY" in st.secrets:
+        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+except Exception:
+    pass  # no secrets.toml / no Streamlit secrets configured — fine locally
 
 from chain.qa_chain import ask as run_qa_chain
 
