@@ -1,3 +1,19 @@
+"""
+Layer 3: Retrieval-augmented QA chain over the Sharan Hegde transcript corpus.
+
+Wires together chain/vectorstore.py's retrieval with a Groq-hosted LLM to answer
+a question grounded only in retrieved transcript chunks, returning both the
+generated answer and the source chunks it was built from (for citations).
+
+Exposes `ask(question)` as the single entry point other layers should call —
+backend/main.py's /ask endpoint imports this directly rather than touching the
+LCEL chain internals.
+
+Because this now lives inside the `chain` package, run it from the project root
+with `-m` so the package import below resolves:
+    ./.venv/Scripts/python.exe -m chain.qa_chain
+"""
+
 import os
 import sys
 
@@ -7,7 +23,7 @@ from langchain_core.runnables import RunnableLambda, RunnableParallel, RunnableP
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 
-from vectorstore import build_vectorstore, retrieve
+from chain.vectorstore import build_vectorstore, retrieve
 
 sys.stdout.reconfigure(encoding="utf-8")
 load_dotenv()
@@ -44,12 +60,14 @@ vectorstore = build_vectorstore()
 
 
 def format_context(chunks: list[dict]) -> str:
+    """Render retrieved chunks into the block of text that fills {context} in the prompt."""
     return "\n\n".join(
         f"[Source: {c['title']} @ {c['start_time']}s]\n{c['text']}" for c in chunks
     )
 
 
 def to_citations(chunks: list[dict]) -> list[dict]:
+    """Strip retrieved chunks down to just the fields a client needs to show a citation."""
     return [
         {"title": c["title"], "start_time": c["start_time"], "source_url": c["source_url"]}
         for c in chunks
@@ -57,6 +75,7 @@ def to_citations(chunks: list[dict]) -> list[dict]:
 
 
 def qa_build_chain(retrieve):
+    """Build the LCEL runnable: retrieve chunks once, then fan out into an answer branch and a sources branch."""
     retrieve_chunks = RunnableLambda(lambda question: retrieve(vectorstore, question))
 
     # First, fan out into {chunks, question}. Then fan out AGAIN from that result:
@@ -80,8 +99,14 @@ def qa_build_chain(retrieve):
 
 chain1 = qa_build_chain(retrieve)
 
+
+def ask(question: str) -> dict:
+    """Run the RAG chain end-to-end for a single question. Returns {"answer": str, "sources": list[dict]}."""
+    return chain1.invoke(question)
+
+
 if __name__ == "__main__":
-    result = chain1.invoke("what are SIPs and how much percentage of capital should be invested into it?")
+    result = ask("what are SIPs and how much percentage of capital should be invested into it?")
     print(result["answer"])
     print("\nSources:")
     for s in result["sources"]:

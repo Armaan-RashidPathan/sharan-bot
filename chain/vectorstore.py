@@ -15,10 +15,13 @@ DEFAULT_K = 5
 
 @dataclass
 class VectorStore:
+    """Bundles the persisted ChromaDB collection with the embedding model used to query it."""
     collection: chromadb.Collection
     embedder: SentenceTransformer
 
+
 def build_vectorstore() -> VectorStore:
+    """Open the ChromaDB collection written by ingest/generate_embeddings.py and load the embedder."""
     client = chromadb.PersistentClient(path=str(CHROMA_PATH))
     collection = client.get_or_create_collection(COLLECTION_NAME, metadata={"hnsw:space": "cosine"})
     embedder = SentenceTransformer(EMBEDDING_MODEL_NAME)
@@ -26,6 +29,7 @@ def build_vectorstore() -> VectorStore:
 
 
 def retrieve(store: VectorStore, question: str, k: int = DEFAULT_K) -> list[dict]:
+    """Embed the question and return its top-k nearest transcript chunks (text + metadata)."""
     query_embedding = store.embedder.encode([question]).tolist()
     results = store.collection.query(query_embeddings=query_embedding, n_results=k)
     return [
