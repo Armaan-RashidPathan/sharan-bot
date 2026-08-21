@@ -59,17 +59,15 @@ Vector Store — ChromaDB (persistent, local)
       ↓
 LangChain RetrievalQA Chain (k=5 chunks retrieved)
       ↓
-LLM — GPT-3.5-turbo (temperature=0.2)
+LLM — Groq-hosted openai/gpt-oss-120b (temperature=0.2)
       ↓
-FastAPI Backend (/ask endpoint)
+FastAPI Backend (/ask endpoint) — built and Docker-tested, not the deploy path
       ↓
-Streamlit Frontend (with example questions + source citations)
+Streamlit Frontend (example questions + source citations), calls the RAG
+chain directly in-process for deployment simplicity
       ↓
-Deploy — Hugging Face Spaces (free, gives live shareable URL)
+Deploy — Streamlit Community Cloud (free, gives live shareable URL)
 ```
-
----
-
 
 ---
 
@@ -83,8 +81,6 @@ Key decisions:
 - Each chunk carries metadata: video_id, title, start_time, source_url with timestamp
 - The source_url format: `https://youtube.com/watch?v={video_id}&t={start_time}`
   so citations link directly to the exact moment in the video
-
-```python
 
 ---
 
@@ -102,23 +98,12 @@ Key decisions:
 
 ---
 
-## Why This Project Exists — Outreach Context
+## Why This Project Exists
 
-This is being built as a demonstration project to reach out directly to
-Sharan Hegde (founder, 1% Club) for an internship or role.
-
-Sharan has publicly stated he wants to hire people who are experts at building
-AI products. The strategy is:
-- Build a working, deployed demo (NOT just a GitHub repo)
-- Reach out via LinkedIn with the live URL
-- Keep the message under 150 words
-- Ask only for a 15-minute conversation, not a job directly
-
-The outreach message will be drafted separately once the demo is live and
-has a shareable Hugging Face Spaces URL.
-
-**The single most important rule: do not reach out until the demo is live
-and clickable. A working link beats any resume or cover letter.**
+Built as a genuinely useful tool for the 1% Club's audience, and as a
+demonstration of end-to-end AI product development — data pipeline,
+retrieval, prompt design, deployment — rather than just a model call wrapped
+in a UI.
 
 ---
 
@@ -135,4 +120,3 @@ and clickable. A working link beats any resume or cover letter.**
 
 This background makes the 1% Club demo directly relevant — financial NLP
 (FinBERT) and multi-agent pipeline experience are exactly what's needed here.
-```
