@@ -34,15 +34,36 @@ Streamlit UI ← (FastAPI backend also built + Docker-tested independently;
 ## Project structure
 
 ```
-ingest/     transcript extraction, chunking, and vector store population
-chain/      retrieval + the RAG chain — the core of the project
-backend/    FastAPI API layer (POST /ask) — built and Docker-tested,
-            not what serves the live demo (see claude.md for why)
-frontend/   Streamlit UI
-data/       chunks.json (extracted transcripts, committed);
-            chroma_db/ is generated on first run, not committed
-tests/      pytest suite for the chunking and citation-formatting logic
+ingest/       transcript extraction, chunking, and vector store population
+chain/        retrieval + the RAG chain — the core of the project
+backend/      FastAPI API layer (POST /ask) — built and Docker-tested,
+              not what serves the live demo (see claude.md for why)
+frontend/     Streamlit UI
+data/         chunks.json (extracted transcripts, committed);
+              chroma_db/ is generated on first run, not committed
+tests/        pytest suite for the chunking and citation-formatting logic
+evaluation/   retrieval evaluation harness — recall@k / MRR against a
+              30-question hand-labeled golden set (see below)
 ```
+
+## Retrieval evaluation
+
+`claude.md` originally tuned the retriever "by feel" — chunk size, overlap,
+and k were all judgment calls with no way to check them. `evaluation/`
+replaces that with a measured baseline: 30 real questions, each hand-labeled
+against the specific transcript chunk that answers it (picked by reading the
+actual corpus, not generated), scored on recall@k and MRR.
+
+```bash
+./.venv/Scripts/python.exe -m evaluation.retrieval_eval
+```
+
+Current baseline (dense retrieval only, no reranking): **recall@5 = 0.80**,
+**recall@10 = 0.93**, **MRR = 0.638**. The two misses are diagnosed by hand,
+not just reported as a number — see [`evaluation/RESULTS.md`](evaluation/RESULTS.md)
+for what they reveal about where dense-embedding retrieval actually breaks
+down (prescriptive vs. descriptive framing of the same topic), and what a
+fix would look like.
 
 ## Testing
 

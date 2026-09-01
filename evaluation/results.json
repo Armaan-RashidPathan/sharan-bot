@@ -1,0 +1,581 @@
+{
+  "per_question": [
+    {
+      "question": "How do I build an emergency fund that's actually accessible in a crisis?",
+      "relevant_ids": [
+        "IgjhqPgwwGI_1064"
+      ],
+      "retrieved_ids": [
+        "IgjhqPgwwGI_1064",
+        "IgjhqPgwwGI_12248",
+        "IgjhqPgwwGI_14053",
+        "IgjhqPgwwGI_12136",
+        "IgjhqPgwwGI_16520",
+        "IgjhqPgwwGI_8206",
+        "IgjhqPgwwGI_8481",
+        "IgjhqPgwwGI_16666",
+        "GjfjqfqDzCg_718",
+        "IgjhqPgwwGI_7801"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "How can I protect my SIP investments with a small monthly amount in case something happens to me?",
+      "relevant_ids": [
+        "IgjhqPgwwGI_12136"
+      ],
+      "retrieved_ids": [
+        "IgjhqPgwwGI_16666",
+        "YiHop4ooqKQ_4",
+        "IgjhqPgwwGI_1064",
+        "CnM5E-frf8s_0",
+        "IgjhqPgwwGI_16211",
+        "IgjhqPgwwGI_8481",
+        "eNmWnAl0U80_493",
+        "IgjhqPgwwGI_7801",
+        "IgjhqPgwwGI_12136",
+        "IgjhqPgwwGI_17308"
+      ],
+      "rank": 9
+    },
+    {
+      "question": "How can I use my HDFC credit card reward points more effectively?",
+      "relevant_ids": [
+        "IgjhqPgwwGI_11094"
+      ],
+      "retrieved_ids": [
+        "IgjhqPgwwGI_10433",
+        "IgjhqPgwwGI_10541",
+        "IgjhqPgwwGI_10641",
+        "IgjhqPgwwGI_10845",
+        "IgjhqPgwwGI_10738",
+        "IgjhqPgwwGI_11094",
+        "IgjhqPgwwGI_10215",
+        "IgjhqPgwwGI_9506",
+        "IgjhqPgwwGI_10335",
+        "IgjhqPgwwGI_10094"
+      ],
+      "rank": 6
+    },
+    {
+      "question": "What's the benefit of the free credit period on credit cards?",
+      "relevant_ids": [
+        "IgjhqPgwwGI_9283"
+      ],
+      "retrieved_ids": [
+        "IgjhqPgwwGI_9836",
+        "IgjhqPgwwGI_9283",
+        "IgjhqPgwwGI_10094",
+        "IgjhqPgwwGI_10335",
+        "IgjhqPgwwGI_10433",
+        "IgjhqPgwwGI_9506",
+        "IgjhqPgwwGI_10845",
+        "eNmWnAl0U80_102",
+        "IgjhqPgwwGI_10641",
+        "IgjhqPgwwGI_10541"
+      ],
+      "rank": 2
+    },
+    {
+      "question": "How does having an existing car loan EMI affect my home loan eligibility?",
+      "relevant_ids": [
+        "IgjhqPgwwGI_16979"
+      ],
+      "retrieved_ids": [
+        "IgjhqPgwwGI_16979",
+        "IgjhqPgwwGI_11617",
+        "IgjhqPgwwGI_11743",
+        "IgjhqPgwwGI_17308",
+        "qsibNjO2Cvc_208",
+        "Ab4Kzz3kWUk_504",
+        "IgjhqPgwwGI_6289",
+        "qsibNjO2Cvc_317",
+        "IgjhqPgwwGI_17125",
+        "YiHop4ooqKQ_115"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "What are the three 'bosses' Sharan says are trying to take your money?",
+      "relevant_ids": [
+        "IgjhqPgwwGI_13561"
+      ],
+      "retrieved_ids": [
+        "IgjhqPgwwGI_9405",
+        "IgjhqPgwwGI_14665",
+        "IgjhqPgwwGI_13561",
+        "IgjhqPgwwGI_8868",
+        "IgjhqPgwwGI_842",
+        "GjfjqfqDzCg_422",
+        "IgjhqPgwwGI_10215",
+        "IgjhqPgwwGI_6759",
+        "IgjhqPgwwGI_2178",
+        "IgjhqPgwwGI_14825"
+      ],
+      "rank": 3
+    },
+    {
+      "question": "What counts as passive income according to Sharan?",
+      "relevant_ids": [
+        "IgjhqPgwwGI_8868"
+      ],
+      "retrieved_ids": [
+        "IgjhqPgwwGI_13680",
+        "IgjhqPgwwGI_3004",
+        "GjfjqfqDzCg_224",
+        "IgjhqPgwwGI_2060",
+        "qsibNjO2Cvc_511",
+        "Ab4Kzz3kWUk_747",
+        "IgjhqPgwwGI_6857",
+        "IgjhqPgwwGI_9155",
+        "IgjhqPgwwGI_8868",
+        "IgjhqPgwwGI_7196"
+      ],
+      "rank": 9
+    },
+    {
+      "question": "What's the typical asset allocation breakdown for the average Indian household?",
+      "relevant_ids": [
+        "IgjhqPgwwGI_5854"
+      ],
+      "retrieved_ids": [
+        "GjfjqfqDzCg_718",
+        "IgjhqPgwwGI_6014",
+        "Ab4Kzz3kWUk_747",
+        "IgjhqPgwwGI_3317",
+        "IgjhqPgwwGI_7196",
+        "qsibNjO2Cvc_411",
+        "IgjhqPgwwGI_9155",
+        "uUdM-kiCOvA_369",
+        "IgjhqPgwwGI_6857",
+        "IgjhqPgwwGI_16797"
+      ],
+      "rank": null
+    },
+    {
+      "question": "Why can't I financially make use of the value of my own house for other goals?",
+      "relevant_ids": [
+        "IgjhqPgwwGI_6289"
+      ],
+      "retrieved_ids": [
+        "IgjhqPgwwGI_6289",
+        "IgjhqPgwwGI_6857",
+        "IgjhqPgwwGI_6967",
+        "IgjhqPgwwGI_6652",
+        "IgjhqPgwwGI_6537",
+        "IgjhqPgwwGI_11218",
+        "IgjhqPgwwGI_17308",
+        "IgjhqPgwwGI_13806",
+        "IgjhqPgwwGI_6759",
+        "IgjhqPgwwGI_13931"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "How much do I need to invest monthly to hit a lean FIRE number by age 40?",
+      "relevant_ids": [
+        "GjfjqfqDzCg_224"
+      ],
+      "retrieved_ids": [
+        "GjfjqfqDzCg_114",
+        "GjfjqfqDzCg_323",
+        "GjfjqfqDzCg_422",
+        "GjfjqfqDzCg_224",
+        "GjfjqfqDzCg_517",
+        "IgjhqPgwwGI_13102",
+        "uUdM-kiCOvA_369",
+        "IgjhqPgwwGI_12383",
+        "DET3gmXW1uY_949",
+        "GjfjqfqDzCg_0"
+      ],
+      "rank": 4
+    },
+    {
+      "question": "Why are fixed deposits a bad way to beat inflation?",
+      "relevant_ids": [
+        "GjfjqfqDzCg_517"
+      ],
+      "retrieved_ids": [
+        "IgjhqPgwwGI_5854",
+        "IgjhqPgwwGI_5350",
+        "IgjhqPgwwGI_16211",
+        "IgjhqPgwwGI_8481",
+        "IgjhqPgwwGI_7078",
+        "IgjhqPgwwGI_8057",
+        "IgjhqPgwwGI_7947",
+        "GjfjqfqDzCg_517",
+        "IgjhqPgwwGI_13287",
+        "IgjhqPgwwGI_7514"
+      ],
+      "rank": 8
+    },
+    {
+      "question": "How should I split my portfolio across asset classes for early retirement?",
+      "relevant_ids": [
+        "GjfjqfqDzCg_718"
+      ],
+      "retrieved_ids": [
+        "GjfjqfqDzCg_821",
+        "GjfjqfqDzCg_718",
+        "IgjhqPgwwGI_5486",
+        "GjfjqfqDzCg_517",
+        "IgjhqPgwwGI_6967",
+        "IgjhqPgwwGI_13680",
+        "IgjhqPgwwGI_11319",
+        "qsibNjO2Cvc_411",
+        "IgjhqPgwwGI_14053",
+        "GjfjqfqDzCg_616"
+      ],
+      "rank": 2
+    },
+    {
+      "question": "Until what age is a father required to pay child maintenance after a divorce?",
+      "relevant_ids": [
+        "qsibNjO2Cvc_511"
+      ],
+      "retrieved_ids": [
+        "qsibNjO2Cvc_511",
+        "qsibNjO2Cvc_100",
+        "qsibNjO2Cvc_609",
+        "Ab4Kzz3kWUk_627",
+        "uUdM-kiCOvA_482",
+        "qsibNjO2Cvc_0",
+        "uUdM-kiCOvA_369",
+        "uUdM-kiCOvA_0",
+        "RoiVyNe_qy8_551",
+        "Ab4Kzz3kWUk_257"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "How can I protect my credit score during a divorce?",
+      "relevant_ids": [
+        "qsibNjO2Cvc_710"
+      ],
+      "retrieved_ids": [
+        "qsibNjO2Cvc_710",
+        "qsibNjO2Cvc_100",
+        "qsibNjO2Cvc_609",
+        "qsibNjO2Cvc_411",
+        "qsibNjO2Cvc_0",
+        "IgjhqPgwwGI_10335",
+        "IgjhqPgwwGI_9949",
+        "qsibNjO2Cvc_208",
+        "qsibNjO2Cvc_317",
+        "qsibNjO2Cvc_511"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "Which Indian states have the highest electricity tariffs?",
+      "relevant_ids": [
+        "Iq_AftOxqMY_105"
+      ],
+      "retrieved_ids": [
+        "Iq_AftOxqMY_105",
+        "Iq_AftOxqMY_305",
+        "Iq_AftOxqMY_0",
+        "Iq_AftOxqMY_409",
+        "IgjhqPgwwGI_3317",
+        "RoiVyNe_qy8_0",
+        "IgjhqPgwwGI_6014",
+        "IgjhqPgwwGI_3825",
+        "IgjhqPgwwGI_3952",
+        "IgjhqPgwwGI_3583"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "How does net metering work for a rooftop solar system?",
+      "relevant_ids": [
+        "Iq_AftOxqMY_409"
+      ],
+      "retrieved_ids": [
+        "Iq_AftOxqMY_506",
+        "Iq_AftOxqMY_203",
+        "Iq_AftOxqMY_305",
+        "Iq_AftOxqMY_105",
+        "Iq_AftOxqMY_409",
+        "Iq_AftOxqMY_0",
+        "IgjhqPgwwGI_10641",
+        "IgjhqPgwwGI_10971",
+        "IgjhqPgwwGI_9720",
+        "IgjhqPgwwGI_11094"
+      ],
+      "rank": 5
+    },
+    {
+      "question": "How much might I end up spending monthly on medication if I neglect my health now?",
+      "relevant_ids": [
+        "DET3gmXW1uY_210"
+      ],
+      "retrieved_ids": [
+        "DET3gmXW1uY_949",
+        "DET3gmXW1uY_210",
+        "DET3gmXW1uY_108",
+        "DET3gmXW1uY_739",
+        "DET3gmXW1uY_627",
+        "DET3gmXW1uY_426",
+        "DET3gmXW1uY_845",
+        "IgjhqPgwwGI_12136",
+        "Y3cKly68pWI_515",
+        "DET3gmXW1uY_319"
+      ],
+      "rank": 2
+    },
+    {
+      "question": "Does Sharan have a way to calculate how much I spend on alcohol and cigarettes yearly?",
+      "relevant_ids": [
+        "DET3gmXW1uY_949"
+      ],
+      "retrieved_ids": [
+        "DET3gmXW1uY_949",
+        "GjfjqfqDzCg_114",
+        "GjfjqfqDzCg_323",
+        "IgjhqPgwwGI_2299",
+        "GjfjqfqDzCg_422",
+        "IgjhqPgwwGI_2879",
+        "DET3gmXW1uY_627",
+        "IgjhqPgwwGI_9155",
+        "Iq_AftOxqMY_305",
+        "IgjhqPgwwGI_3004"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "What student discounts does Sharan mention for flights and electronics?",
+      "relevant_ids": [
+        "eNmWnAl0U80_102"
+      ],
+      "retrieved_ids": [
+        "eNmWnAl0U80_102",
+        "RoiVyNe_qy8_224",
+        "IgjhqPgwwGI_10845",
+        "IgjhqPgwwGI_9155",
+        "IgjhqPgwwGI_377",
+        "IgjhqPgwwGI_11094",
+        "RoiVyNe_qy8_551",
+        "eNmWnAl0U80_213",
+        "IgjhqPgwwGI_2299",
+        "uUdM-kiCOvA_250"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "How can I use my liquid mutual fund's withdrawal delay to stop impulse purchases?",
+      "relevant_ids": [
+        "eNmWnAl0U80_402"
+      ],
+      "retrieved_ids": [
+        "eNmWnAl0U80_402",
+        "IgjhqPgwwGI_7666",
+        "IgjhqPgwwGI_1064",
+        "IgjhqPgwwGI_9617",
+        "IgjhqPgwwGI_8481",
+        "IgjhqPgwwGI_9405",
+        "CnM5E-frf8s_0",
+        "IgjhqPgwwGI_11094",
+        "eNmWnAl0U80_493",
+        "YiHop4ooqKQ_635"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "Why are gift cards a common tool for scammers?",
+      "relevant_ids": [
+        "YiHop4ooqKQ_224"
+      ],
+      "retrieved_ids": [
+        "YiHop4ooqKQ_224",
+        "IgjhqPgwwGI_10433",
+        "YiHop4ooqKQ_115",
+        "YiHop4ooqKQ_322",
+        "YiHop4ooqKQ_4",
+        "IgjhqPgwwGI_10541",
+        "IgjhqPgwwGI_10641",
+        "CnM5E-frf8s_0",
+        "YiHop4ooqKQ_530",
+        "IgjhqPgwwGI_9836"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "What personal documents should I avoid sharing on unknown websites?",
+      "relevant_ids": [
+        "YiHop4ooqKQ_530"
+      ],
+      "retrieved_ids": [
+        "CnM5E-frf8s_123",
+        "YiHop4ooqKQ_530",
+        "YiHop4ooqKQ_428",
+        "IgjhqPgwwGI_4194",
+        "YiHop4ooqKQ_4",
+        "YiHop4ooqKQ_224",
+        "IgjhqPgwwGI_8868",
+        "Ab4Kzz3kWUk_257",
+        "IgjhqPgwwGI_10971",
+        "DcNToAAISc4_161"
+      ],
+      "rank": 2
+    },
+    {
+      "question": "How can my spouse's LTA benefit help save on taxes while traveling?",
+      "relevant_ids": [
+        "RoiVyNe_qy8_439"
+      ],
+      "retrieved_ids": [
+        "RoiVyNe_qy8_551",
+        "RoiVyNe_qy8_439",
+        "Ab4Kzz3kWUk_504",
+        "Ab4Kzz3kWUk_374",
+        "IgjhqPgwwGI_10971",
+        "Ab4Kzz3kWUk_257",
+        "qsibNjO2Cvc_511",
+        "Ab4Kzz3kWUk_0",
+        "Ab4Kzz3kWUk_627",
+        "qsibNjO2Cvc_411"
+      ],
+      "rank": 2
+    },
+    {
+      "question": "Why should I invest in my parents' name for tax savings?",
+      "relevant_ids": [
+        "Ab4Kzz3kWUk_126"
+      ],
+      "retrieved_ids": [
+        "Ab4Kzz3kWUk_126",
+        "Ab4Kzz3kWUk_627",
+        "Ab4Kzz3kWUk_374",
+        "Ab4Kzz3kWUk_257",
+        "Ab4Kzz3kWUk_0",
+        "IgjhqPgwwGI_12551",
+        "IgjhqPgwwGI_8747",
+        "IgjhqPgwwGI_14053",
+        "IgjhqPgwwGI_13561",
+        "uUdM-kiCOvA_0"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "How much tax can I save through investments made for my child's education?",
+      "relevant_ids": [
+        "Ab4Kzz3kWUk_747"
+      ],
+      "retrieved_ids": [
+        "Ab4Kzz3kWUk_627",
+        "Ab4Kzz3kWUk_126",
+        "IgjhqPgwwGI_12551",
+        "uUdM-kiCOvA_369",
+        "Ab4Kzz3kWUk_374",
+        "uUdM-kiCOvA_482",
+        "uUdM-kiCOvA_129",
+        "Ab4Kzz3kWUk_257",
+        "uUdM-kiCOvA_250",
+        "uUdM-kiCOvA_0"
+      ],
+      "rank": null
+    },
+    {
+      "question": "How has the cost of an MBA education in India changed over time?",
+      "relevant_ids": [
+        "uUdM-kiCOvA_250"
+      ],
+      "retrieved_ids": [
+        "uUdM-kiCOvA_250",
+        "IgjhqPgwwGI_3457",
+        "uUdM-kiCOvA_129",
+        "IgjhqPgwwGI_5350",
+        "IgjhqPgwwGI_9155",
+        "IgjhqPgwwGI_3317",
+        "IgjhqPgwwGI_6652",
+        "IgjhqPgwwGI_3708",
+        "IgjhqPgwwGI_3825",
+        "IgjhqPgwwGI_16211"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "What are the odds of winning a lottery, in the context of a lottery scam warning?",
+      "relevant_ids": [
+        "CnM5E-frf8s_705"
+      ],
+      "retrieved_ids": [
+        "CnM5E-frf8s_705",
+        "CnM5E-frf8s_0",
+        "YiHop4ooqKQ_224",
+        "YiHop4ooqKQ_635",
+        "YiHop4ooqKQ_4",
+        "CnM5E-frf8s_123",
+        "CnM5E-frf8s_592",
+        "YiHop4ooqKQ_115",
+        "CnM5E-frf8s_344",
+        "IgjhqPgwwGI_8481"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "What's a red flag that a job consultancy offer might be a scam?",
+      "relevant_ids": [
+        "CnM5E-frf8s_473"
+      ],
+      "retrieved_ids": [
+        "CnM5E-frf8s_473",
+        "CnM5E-frf8s_344",
+        "YiHop4ooqKQ_224",
+        "CnM5E-frf8s_705",
+        "CnM5E-frf8s_234",
+        "DcNToAAISc4_270",
+        "CnM5E-frf8s_0",
+        "YiHop4ooqKQ_635",
+        "YiHop4ooqKQ_530",
+        "YiHop4ooqKQ_115"
+      ],
+      "rank": 1
+    },
+    {
+      "question": "What are unregistered financial influencers not allowed to do under SEBI's new rules?",
+      "relevant_ids": [
+        "DcNToAAISc4_161"
+      ],
+      "retrieved_ids": [
+        "DcNToAAISc4_270",
+        "DcNToAAISc4_1",
+        "DcNToAAISc4_161",
+        "DcNToAAISc4_400",
+        "YiHop4ooqKQ_4",
+        "IgjhqPgwwGI_8868",
+        "IgjhqPgwwGI_9405",
+        "IgjhqPgwwGI_842",
+        "YiHop4ooqKQ_530",
+        "IgjhqPgwwGI_8206"
+      ],
+      "rank": 3
+    },
+    {
+      "question": "What percentage of monthly income is a comfortable one-shot spending limit, according to the interviewed employee?",
+      "relevant_ids": [
+        "Y3cKly68pWI_515"
+      ],
+      "retrieved_ids": [
+        "Y3cKly68pWI_515",
+        "IgjhqPgwwGI_16211",
+        "IgjhqPgwwGI_16797",
+        "GjfjqfqDzCg_323",
+        "GjfjqfqDzCg_422",
+        "IgjhqPgwwGI_7078",
+        "DET3gmXW1uY_949",
+        "IgjhqPgwwGI_16979",
+        "IgjhqPgwwGI_16397",
+        "IgjhqPgwwGI_1798"
+      ],
+      "rank": 1
+    }
+  ],
+  "recall_at_k": {
+    "3": 0.7333333333333333,
+    "5": 0.8,
+    "7": 0.8333333333333334,
+    "10": 0.9333333333333333
+  },
+  "mrr": 0.6376851851851851
+}
