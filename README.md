@@ -112,5 +112,3 @@ automatically on first launch:
 
 **Armaan Rashid Pathan** — [GitHub](https://github.com/Armaan-RashidPathan)
 
-See [`claude.md`](claude.md) for the full architecture notes and design
-decisions behind this project.
