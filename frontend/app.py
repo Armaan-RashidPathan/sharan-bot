@@ -37,6 +37,13 @@ try:
 except Exception:
     pass  # no secrets.toml / no Streamlit secrets configured — fine locally
 
+from calculators.finance import (
+    DEFAULT_ANNUAL_RETURN,
+    asset_allocation_split,
+    lean_fire_number,
+    required_monthly_sip,
+    sip_future_value,
+)
 from chain.qa_chain import ask as run_qa_chain
 
 # Not using an actual photo of Sharan Hegde here — that's a real person's
@@ -80,11 +87,7 @@ def handle_question(question: str) -> None:
         )
 
 
-def main() -> None:
-    st.set_page_config(page_title="1% Club Finance Assistant", page_icon="💰")
-    st.title("1% Club Finance Assistant")
-    st.caption("Ask questions grounded in Sharan Hegde's financial education content.")
-
+def render_ask_tab() -> None:
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
@@ -109,6 +112,84 @@ def main() -> None:
     question = clicked_example or typed_question
     if question:
         handle_question(question)
+
+
+def render_allocation_breakdown(total_amount: float) -> None:
+    """Show a corpus split across Sharan's 60/10/15/5/5/5 asset-class framework."""
+    split = asset_allocation_split(total_amount)
+    st.caption("How that corpus breaks down across Sharan's asset-allocation framework:")
+    st.bar_chart(split)
+    for asset_class, amount in split.items():
+        st.write(f"- **{asset_class}**: ₹{amount:,.0f}")
+
+
+def render_fire_calculator() -> None:
+    st.subheader("How much do I need to invest to hit my FIRE number?")
+    st.caption(
+        "Lean FIRE = annual expenses × 20 (a 5% withdrawal rate) — Sharan's own rule, "
+        "not a generic finance-industry one."
+    )
+
+    monthly_expenses = st.number_input(
+        "Current monthly expenses (₹)", min_value=0, value=50_000, step=5_000, key="fire_expenses"
+    )
+    years = st.slider("Years until you want to reach it", 1, 40, 13, key="fire_years")
+    annual_return = st.slider(
+        "Expected annual return (%)", 1, 20, int(DEFAULT_ANNUAL_RETURN * 100), key="fire_return"
+    ) / 100
+
+    annual_expenses = monthly_expenses * 12
+    fire_number = lean_fire_number(annual_expenses)
+    required_sip = required_monthly_sip(fire_number, annual_return, years)
+
+    col1, col2 = st.columns(2)
+    col1.metric("Your lean FIRE number", f"₹{fire_number:,.0f}")
+    col2.metric("Required monthly SIP", f"₹{required_sip:,.0f}")
+
+    render_allocation_breakdown(fire_number)
+
+
+def render_sip_growth_calculator() -> None:
+    st.subheader("What will my SIP grow to?")
+
+    monthly_amount = st.number_input(
+        "Monthly SIP amount (₹)", min_value=0, value=20_000, step=1_000, key="sip_amount"
+    )
+    years = st.slider("Investment horizon (years)", 1, 40, 10, key="sip_years")
+    annual_return = st.slider(
+        "Expected annual return (%)", 1, 20, int(DEFAULT_ANNUAL_RETURN * 100), key="sip_return"
+    ) / 100
+
+    future_value = sip_future_value(monthly_amount, annual_return, years)
+    total_invested = monthly_amount * years * 12
+
+    col1, col2 = st.columns(2)
+    col1.metric("Future value", f"₹{future_value:,.0f}")
+    col2.metric("Total invested", f"₹{total_invested:,.0f}", f"₹{future_value - total_invested:,.0f} growth")
+
+    render_allocation_breakdown(future_value)
+
+
+def render_calculators_tab() -> None:
+    st.caption(
+        "Real math, not an LLM guessing at arithmetic — see calculators/finance.py "
+        "for exactly which transcript moment each number is grounded in."
+    )
+    render_fire_calculator()
+    st.divider()
+    render_sip_growth_calculator()
+
+
+def main() -> None:
+    st.set_page_config(page_title="1% Club Finance Assistant", page_icon="💰")
+    st.title("1% Club Finance Assistant")
+    st.caption("Ask questions grounded in Sharan Hegde's financial education content.")
+
+    ask_tab, calculators_tab = st.tabs(["💬 Ask", "📊 Calculators"])
+    with ask_tab:
+        render_ask_tab()
+    with calculators_tab:
+        render_calculators_tab()
 
 
 if __name__ == "__main__":

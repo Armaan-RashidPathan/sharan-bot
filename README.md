@@ -17,6 +17,9 @@ masterclass plus 12 topic videos from his YouTube channel.
   that moment
 - The system prompt is tuned to match Sharan's own teaching style — direct
   address, concrete numbers, rhetorical build-up — not generic advisor tone
+- A SIP/FIRE calculator built on Sharan's actual frameworks — lean FIRE =
+  annual expenses × 20, and the 60/10/15/5/5/5 asset-allocation split — runs
+  as real Python math (`calculators/`), not an LLM guessing at arithmetic
 
 ## Architecture
 
@@ -36,12 +39,15 @@ Streamlit UI ← (FastAPI backend also built + Docker-tested independently;
 ```
 ingest/       transcript extraction, chunking, and vector store population
 chain/        retrieval + the RAG chain — the core of the project
+calculators/  deterministic SIP/FIRE math grounded in specific transcript
+              moments — not LLM-generated numbers
 backend/      FastAPI API layer (POST /ask) — built and Docker-tested,
               not what serves the live demo (see claude.md for why)
-frontend/     Streamlit UI
+frontend/     Streamlit UI (chat + calculators)
 data/         chunks.json (extracted transcripts, committed);
               chroma_db/ is generated on first run, not committed
-tests/        pytest suite for the chunking and citation-formatting logic
+tests/        pytest suite — chunking, citation formatting, the eval
+              harness's own math, and the calculators
 evaluation/   retrieval evaluation harness — recall@k / MRR against a
               30-question hand-labeled golden set (see below)
 ```
