@@ -23,6 +23,7 @@ from langchain_core.runnables import RunnableLambda, RunnableParallel, RunnableP
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 
+from chain.formatting import format_context, to_citations
 from chain.vectorstore import build_vectorstore, retrieve
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -71,21 +72,6 @@ Voice — match Sharan's teaching style, not generic financial-advisor writing:
 
 
 vectorstore = build_vectorstore()
-
-
-def format_context(chunks: list[dict]) -> str:
-    """Render retrieved chunks into the block of text that fills {context} in the prompt."""
-    return "\n\n".join(
-        f"[Source: {c['title']} @ {c['start_time']}s]\n{c['text']}" for c in chunks
-    )
-
-
-def to_citations(chunks: list[dict]) -> list[dict]:
-    """Strip retrieved chunks down to just the fields a client needs to show a citation."""
-    return [
-        {"title": c["title"], "start_time": c["start_time"], "source_url": c["source_url"]}
-        for c in chunks
-    ]
 
 
 def qa_build_chain(retrieve):

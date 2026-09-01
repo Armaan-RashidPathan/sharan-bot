@@ -1,5 +1,7 @@
 # 1% Club Finance Assistant
 
+[![tests](https://github.com/Armaan-RashidPathan/sharan-bot/actions/workflows/tests.yml/badge.svg)](https://github.com/Armaan-RashidPathan/sharan-bot/actions/workflows/tests.yml)
+
 **Live demo: [sharan-bot-hcr.streamlit.app](https://sharan-bot-hcr.streamlit.app/)**
 
 A RAG-based conversational assistant trained exclusively on Sharan Hegde's
@@ -39,7 +41,21 @@ backend/    FastAPI API layer (POST /ask) — built and Docker-tested,
 frontend/   Streamlit UI
 data/       chunks.json (extracted transcripts, committed);
             chroma_db/ is generated on first run, not committed
+tests/      pytest suite for the chunking and citation-formatting logic
 ```
+
+## Testing
+
+```bash
+./.venv/Scripts/python.exe -m pip install -r requirements-dev.txt
+./.venv/Scripts/python.exe -m pytest tests/ -v
+```
+
+Tests cover the deterministic logic — transcript chunking (chunk size,
+overlap, timestamp-per-chunk correctness) and the citation-formatting
+helpers — as pure-function tests against synthetic input. No API key or
+network access needed to run them, which is also why CI can run on every
+push without secrets. See `.github/workflows/tests.yml`.
 
 ## Running locally
 
