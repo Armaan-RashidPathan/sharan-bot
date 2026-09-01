@@ -6,15 +6,57 @@ from unittest.mock import patch
 
 import pytest
 
-from evaluation.retrieval_eval import chunk_id, evaluate
+from evaluation.retrieval_eval import chunk_id, evaluate, resolve_golden_set
 
 
-def fake_chunk(video_id: str, start_time: int) -> dict:
-    return {"video_id": video_id, "start_time": start_time, "title": "t", "text": "x"}
+def fake_chunk(video_id: str, start_time: int, text: str = "x") -> dict:
+    return {"video_id": video_id, "start_time": start_time, "title": "t", "text": text}
 
 
 def test_chunk_id_format():
     assert chunk_id(fake_chunk("abc123", 90)) == "abc123_90"
+
+
+def test_resolve_golden_set_finds_chunk_containing_fingerprint():
+    chunks = [
+        fake_chunk("v", 10, text="talking about SIPs and how much to invest monthly"),
+        fake_chunk("v", 20, text="something unrelated about electricity bills"),
+    ]
+    golden_set = [{"question": "what are SIPs?", "answer_fingerprint": "how much to invest monthly"}]
+
+    resolved, unresolved = resolve_golden_set(golden_set, chunks)
+
+    assert unresolved == []
+    assert resolved == [{"question": "what are SIPs?", "relevant_ids": ["v_10"]}]
+
+
+def test_resolve_golden_set_reports_unresolved_fingerprints_separately():
+    """A fingerprint missing from the corpus (e.g. stripped by upstream
+    cleaning) is a distinct failure mode from a retrieval miss — it must be
+    reported separately, not silently scored as rank=None."""
+    chunks = [fake_chunk("v", 10, text="something else entirely")]
+    golden_set = [{"question": "q1", "answer_fingerprint": "text that does not exist anywhere"}]
+
+    resolved, unresolved = resolve_golden_set(golden_set, chunks)
+
+    assert resolved == []
+    assert unresolved == golden_set
+
+
+def test_resolve_golden_set_can_match_multiple_overlapping_chunks():
+    """A fingerprint sitting in an overlap region can legitimately appear in
+    more than one chunk — resolve_golden_set should keep every match, not
+    just the first."""
+    chunks = [
+        fake_chunk("v", 10, text="shared phrase across the overlap boundary"),
+        fake_chunk("v", 20, text="shared phrase across the overlap boundary too"),
+    ]
+    golden_set = [{"question": "q1", "answer_fingerprint": "shared phrase across the overlap boundary"}]
+
+    resolved, unresolved = resolve_golden_set(golden_set, chunks)
+
+    assert unresolved == []
+    assert resolved[0]["relevant_ids"] == ["v_10", "v_20"]
 
 
 def test_evaluate_recall_and_mrr_with_known_ranking():

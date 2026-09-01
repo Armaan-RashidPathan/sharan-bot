@@ -84,3 +84,35 @@ def test_start_time_matches_first_word_of_chunk():
         expected_word_index = i * step
         expected_start = entries[expected_word_index]["start"]
         assert chunk["start_time"] == int(expected_start)
+
+
+def test_large_gap_between_entries_forces_a_chunk_boundary():
+    """When entries were removed upstream (e.g. strip_crowd_banter), the
+    surviving entries on either side of the gap aren't actually adjacent
+    speech. A chunk must never span that gap — otherwise two unrelated
+    moments in the video get silently merged into one chunk, diluting its
+    embedding across two topics instead of representing either well."""
+    before_gap = make_entries(30)  # ends at start=11.6s
+    after_gap = [
+        {"text": f"word{i}", "start": 100.0 + (i - 30) * 0.4}
+        for i in range(30, 60)
+    ]  # starts at 100.0s — a huge, deliberate gap from the first half
+
+    chunks = chunk_transcript(before_gap + after_gap, "vid123", "Test Video")
+
+    # Both halves are short enough to each be a single chunk on their own,
+    # so a gap-aware chunker produces exactly two chunks, not one 60-word chunk.
+    assert len(chunks) == 2
+    assert chunks[0]["text"].split() == [f"word{i}" for i in range(30)]
+    assert chunks[1]["text"].split() == [f"word{i}" for i in range(30, 60)]
+    assert chunks[1]["start_time"] == 100
+
+
+def test_small_gaps_do_not_force_a_boundary():
+    """Normal transcript cadence (short gaps between consecutive entries)
+    shouldn't trigger segment-splitting — this is the common case and must
+    behave exactly like a single continuous stream, as before."""
+    entries = make_entries(CHUNK_SIZE_WORDS + 50, seconds_per_word=0.4)
+    chunks = chunk_transcript(entries, "vid123", "Test Video")
+
+    assert len(chunks) == 2  # same as the no-gap-awareness behavior

@@ -1,10 +1,11 @@
 """
 Layer 1: Transcript Extraction
 
-Pulls transcripts for the selected Sharan Hegde videos, chunks them into
-400-word segments with 50-word overlap, tags each chunk with metadata
-(video_id, title, start_time, source_url), and writes the result to
-data/chunks.json for the embedding layer (Layer 2) to consume.
+Pulls transcripts for the selected Sharan Hegde videos, strips crowd Q&A
+banter from the seminar transcript, chunks the rest into 400-word segments
+with 50-word overlap, tags each chunk with metadata (video_id, title,
+start_time, source_url), and writes the result to data/chunks.json for the
+embedding layer (Layer 2) to consume.
 """
 
 import json
@@ -50,14 +51,80 @@ def fetch_transcript(video_id: str):
     return [{"text": s.text, "start": s.start} for s in fetched]
 
 
-def chunk_transcript(entries, video_id: str, title: str):
-    """Group transcript entries into ~CHUNK_SIZE_WORDS-word chunks with overlap,
-    tagging each chunk with the timestamp of its first word."""
-    words = []  # (word, start_time) pairs, flattened across all transcript entries
-    for entry in entries:
-        for word in entry["text"].split():
-            words.append((word, entry["start"]))
+def strip_crowd_banter(entries: list[dict], window: int = 8, threshold: float = 0.3) -> list[dict]:
+    """Drop transcript entries that fall within a crowd Q&A stretch.
 
+    The 5-hour seminar transcript marks rapid speaker turns during audience
+    interaction with a literal '>>' per turn — YouTube's auto-captioning
+    convention for multi-speaker segments (see evaluation/RESULTS.md, which
+    is where this was first diagnosed as a retrieval-quality problem: chunks
+    built from these stretches are crosstalk, not Sharan teaching, and were
+    burning retrieval slots on near-noise).
+
+    A centered sliding window over entries flags a stretch as crowd banter
+    when more than `threshold` of the entries within it contain '>>', and
+    drops just the entries in that windowed stretch. Single-speaker
+    monologue — the vast majority of entries, which have zero '>>' — passes
+    through untouched regardless of window/threshold, since an isolated
+    entry surrounded by clean entries never reaches the density threshold.
+
+    Tradeoff: a handful of genuinely clean entries right at the *boundary*
+    of a noisy burst get swept up too, since their window straddles the
+    burst. That's deliberate — erring toward removing a few extra
+    borderline seconds of real monologue over leaving crosstalk in, given
+    what this is feeding (retrieval for a financial-advice assistant, where
+    a chunk of audience banter is worse than a chunk missing its first or
+    last sentence covered by another overlapping chunk anyway).
+    """
+    n = len(entries)
+    if n == 0:
+        return []
+
+    has_marker = [">>" in e["text"] for e in entries]
+    half = window // 2
+    kept = []
+    for i in range(n):
+        lo, hi = max(0, i - half), min(n, i + half + 1)
+        density = sum(has_marker[lo:hi]) / (hi - lo)
+        if density <= threshold:
+            kept.append(entries[i])
+    return kept
+
+
+MAX_ENTRY_GAP_SECONDS = 45.0
+
+
+def _split_into_segments(entries: list[dict], max_gap_seconds: float) -> list[list[dict]]:
+    """Split entries into runs with no unusually large time gap between
+    consecutive entries. Normal transcript entries are ~1-3 seconds apart
+    (median ~2.3s even across a 5-hour seminar, topping out around 12-13s
+    for an ordinary pause between sentences — measured directly against
+    this corpus, not assumed). A much bigger gap between two SURVIVING
+    entries means something was removed between them upstream
+    (strip_crowd_banter, or a future cleaning step) — so the entries on
+    either side aren't actually adjacent speech, just adjacent in the list.
+
+    45s was picked by sweeping thresholds against this corpus and checking
+    what fraction of resulting chunks end up under 100 words (a proxy for
+    "chunk carries too little context to be useful"): 5s fragmented 52% of
+    chunks below 100 words by tripping on ordinary pauses, while 45s drops
+    that to ~7% and still separates the seminar's largest gaps (banter
+    stretches spanning tens to hundreds of seconds) from real monologue.
+    """
+    if not entries:
+        return []
+    segments = [[entries[0]]]
+    for prev, curr in zip(entries, entries[1:]):
+        if curr["start"] - prev["start"] > max_gap_seconds:
+            segments.append([])
+        segments[-1].append(curr)
+    return segments
+
+
+def _chunk_word_list(words: list[tuple], video_id: str, title: str) -> list[dict]:
+    """Slide a CHUNK_SIZE_WORDS window with CHUNK_OVERLAP_WORDS overlap over
+    a single contiguous (word, start_time) list, tagging each chunk with the
+    timestamp of its first word."""
     step = CHUNK_SIZE_WORDS - CHUNK_OVERLAP_WORDS
     chunks = []
     for i in range(0, len(words), step):
@@ -77,6 +144,25 @@ def chunk_transcript(entries, video_id: str, title: str):
     return chunks
 
 
+def chunk_transcript(entries, video_id: str, title: str, max_gap_seconds: float = MAX_ENTRY_GAP_SECONDS):
+    """Group transcript entries into ~CHUNK_SIZE_WORDS-word chunks with overlap.
+
+    Chunk boundaries never span a gap larger than max_gap_seconds between
+    consecutive entries. This matters once entries can be removed upstream
+    (see strip_crowd_banter): naively treating the remaining entries as one
+    unbroken stream would silently merge two unrelated, non-adjacent moments
+    in the video into a single chunk, diluting its embedding across two
+    topics instead of representing either one well.
+    """
+    segments = _split_into_segments(entries, max_gap_seconds)
+
+    chunks = []
+    for segment in segments:
+        words = [(word, entry["start"]) for entry in segment for word in entry["text"].split()]
+        chunks.extend(_chunk_word_list(words, video_id, title))
+    return chunks
+
+
 def main():
     DATA_DIR.mkdir(exist_ok=True)
     all_chunks = []
@@ -90,7 +176,12 @@ def main():
             print(f"  Skipped — {e}")
             continue
 
-        chunks = chunk_transcript(entries, video_id, title)
+        cleaned_entries = strip_crowd_banter(entries)
+        removed = len(entries) - len(cleaned_entries)
+        if removed:
+            print(f"  Stripped {removed}/{len(entries)} entries as crowd Q&A banter")
+
+        chunks = chunk_transcript(cleaned_entries, video_id, title)
         print(f"  {len(entries)} transcript segments -> {len(chunks)} chunks")
         all_chunks.extend(chunks)
 

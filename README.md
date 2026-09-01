@@ -51,19 +51,23 @@ evaluation/   retrieval evaluation harness — recall@k / MRR against a
 `claude.md` originally tuned the retriever "by feel" — chunk size, overlap,
 and k were all judgment calls with no way to check them. `evaluation/`
 replaces that with a measured baseline: 30 real questions, each hand-labeled
-against the specific transcript chunk that answers it (picked by reading the
-actual corpus, not generated), scored on recall@k and MRR.
+against a verbatim phrase from the transcript chunk that answers it (picked
+by reading the actual corpus, not generated), scored on recall@k and MRR.
 
 ```bash
 ./.venv/Scripts/python.exe -m evaluation.retrieval_eval
 ```
 
-Current baseline (dense retrieval only, no reranking): **recall@5 = 0.80**,
-**recall@10 = 0.93**, **MRR = 0.638**. The two misses are diagnosed by hand,
-not just reported as a number — see [`evaluation/RESULTS.md`](evaluation/RESULTS.md)
-for what they reveal about where dense-embedding retrieval actually breaks
-down (prescriptive vs. descriptive framing of the same topic), and what a
-fix would look like.
+The baseline led to a real fix: the eval diagnosed crowd Q&A crosstalk
+polluting seminar chunks, which got cleaned (1,791 entries removed), which
+in turn exposed a genuine chunking bug (chunks silently merging unrelated
+content across removed stretches), which got fixed with gap-aware chunk
+boundaries. **The numbers didn't end up cleanly better** — recall@5 went
+0.80 → 0.79, MRR 0.638 → 0.596 — because fixing the diagnosed cases exposed
+a deeper, still-open limitation of fixed-size chunking. All three iterations,
+including that non-improvement, are documented honestly in
+[`evaluation/RESULTS.md`](evaluation/RESULTS.md) — what was diagnosed, what
+was fixed, what wasn't, and why.
 
 ## Testing
 
