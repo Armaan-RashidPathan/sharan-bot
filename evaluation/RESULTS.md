@@ -15,7 +15,7 @@ Config at time of this run: dense retrieval only (cosine similarity over
 
 `k=5` (the current production setting) finds the labeled chunk in 80% of
 cases. Jumping to `k=10` closes most of the remaining gap (0.93) — a
-data-backed reason to reconsider the k=5/k=7 tradeoff `claude.md` originally
+data-backed reason to reconsider the k=5/k=7 tradeoff originally
 called by feel ("if answers feel shallow, increase to 7"), rather than by
 measurement.
 
